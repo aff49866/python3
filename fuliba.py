@@ -24,8 +24,8 @@ def getimg(ulist,soup): #获取图片
         if i.img != None:
             img = i.img['src']
             ulist.append(img)
-def saveimg(ulist):
-    root = "I://python//pics//"
+def saveimg(ulist): #存取图片到本地电脑
+    root = "I:/jiandanpic/"
     for url in ulist:
         path = root + url.split("/")[-1]
         try:
@@ -34,7 +34,7 @@ def saveimg(ulist):
                 with open(path,'wb') as f:
                     f.write(imgr.content)
             else:
-                print("文件已经存在")
+                print("文件已经存在",path)
         except ZeroDivisionError as e:
             raise ValueError(e)
 def main(depth_num):
