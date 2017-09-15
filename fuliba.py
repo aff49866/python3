@@ -37,6 +37,6 @@ def main(depth_num):
     for n in secend_url_list:
         html = gethtml(n[0])
         soup = BeautifulSoup(html, 'html.parser')
-        getimg(ulist, soup)
+        getimg(ulist,h,soup)
     printimg(ulist)
 main(3)
