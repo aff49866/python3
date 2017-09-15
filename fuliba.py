@@ -18,10 +18,7 @@ def gethtml(url):
         return r.text
     except ZeroDivisionError as e:
         raise ValueError(e)
-def getimg(ulist,html,soup):
-    # imglist = re.findall(r'http://[\w\d]*?.sinaimg.cn/[\w\d]*?/[\w\d]*?.jpg', html)
-    # print(imglist)
-    # imgd3 = soup.find_all(title='煎蛋年度妹子图TOP1000')
+def getimg(ulist,soup):
     for i in soup.find_all("p"):
         if i.img != None:
             img = i.img['src']
@@ -36,11 +33,10 @@ def main(depth_num):
         url = "http://fuliba.net/page/"
         url = url + str(l+1)
         geturl(secend_url_list,url)
-    # print(secend_url_list)
     ulist = []
     for n in secend_url_list:
         html = gethtml(n[0])
         soup = BeautifulSoup(html, 'html.parser')
-        getimg(ulist, html, soup)
+        getimg(ulist, soup)
     printimg(ulist)
 main(3)
