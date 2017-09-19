@@ -51,8 +51,8 @@
       <file leaf-file-name="tb2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tb2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+            <state relative-caret-position="442">
+              <caret line="41" column="28" lean-forward="true" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -528,7 +528,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505808736940</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="我日开始爬测">
+      <created>1505808761699</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1505808761699</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -634,7 +641,8 @@
     <MESSAGE value="福利吧更新(多线程、图片存储)" />
     <MESSAGE value="随机生成N个数，它们之和等于M。并且每个数不小于某个值X" />
     <MESSAGE value="gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
+    <MESSAGE value="我日开始爬测" />
+    <option name="LAST_COMMIT_MESSAGE" value="我日开始爬测" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -926,8 +934,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tb2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+        <state relative-caret-position="442">
+          <caret line="41" column="28" lean-forward="true" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
           <folding />
         </state>
       </provider>
