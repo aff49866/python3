@@ -35,13 +35,13 @@
 
 
 # -*- coding: UTF-8 -*-
-import requests
-import re
-response = requests.get("http://www.baidu.com2/")
-response.encoding = response.apparent_encoding
-response = response.text
-
-print(response)
+# import requests
+# import re
+# response = requests.get("http://www.baidu.com2/")
+# response.encoding = response.apparent_encoding
+# response = response.text
+#
+# print(response)
 
 
 # 廖学峰老师教程学习
@@ -155,3 +155,11 @@ from functools import reduce
 #     return t[1]
 # L2 = sorted(L,key=by_score,reverse=True)
 # print(L2)
+def isPrime(n):
+  if n <= 1:
+    return False
+  for i in range(2, n):
+    if n % i == 0:
+        return False
+  return True
+print(isPrime(5))
