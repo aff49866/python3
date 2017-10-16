@@ -37,7 +37,7 @@
 # -*- coding: UTF-8 -*-
 import requests
 import re
-response = requests.get("http://www.baidu.comfdsffdyuan/")
+response = requests.get("http://www.baidu.com2/")
 response.encoding = response.apparent_encoding
 response = response.text
 
