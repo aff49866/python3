@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import time
 import re
 import xlwt
+import threading
 from operator import itemgetter, attrgetter
 def gethtml(url):
     try:

@@ -35,15 +35,10 @@
 
 
 # -*- coding: UTF-8 -*-
-import requests
+
 import re
-response = requests.get("http://www.west.cn/")
-response.encoding = response.apparent_encoding
-response = response.text
-
-print(response)
-
-
+r = re.findall("1{:1}2","11120")
+print(r)
 # 廖学峰老师教程学习
 # classmates = ['michael','bob','tracy']
 # classmates.append('adam')

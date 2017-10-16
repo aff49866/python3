@@ -1,9 +1,16 @@
+from threading import Thread
+from queue import Queue
+from time import sleep
 import requests
 from bs4 import BeautifulSoup
 import time
-import threading
 import os
-# os.environ['NO_PROXY'] = 'fuliba.net' #不使用代理
+#q是任务队列
+#NUM是并发线程总数
+#JOBS是有多少任务
+q = Queue()
+NUM = 3
+JOBS = 10
 def geturl(all_link,url): #获取url
     html = gethtml(url)
     soup = BeautifulSoup(html, 'html.parser')
@@ -45,15 +52,30 @@ def main(depth_num):
     for l in range(depth):
         url = "http://fuliba.net/page/"
         url = url + str(l+1)
-        thread = threading.Thread(target=geturl(secend_url_list,url), )
-        thread.start()
-        thread.join()
+        geturl(secend_url_list, url)
     for n in secend_url_list:
         html = gethtml(n[0])
         soup = BeautifulSoup(html, 'html.parser')
-        thread2 = threading.Thread(target=getimg(ulist,soup), )
-        thread2.start()
-        thread2.join()
+        getimg(ulist, soup)
     saveimg(ulist)
     print("time", time.time() - start_time)
-main(1)
+#具体的处理函数，负责处理单个任务
+# def do_somthing_using(arguments):
+#     print("fdg")
+#这个是工作进程，负责不断从队列取数据并处理
+def working():
+    while True:
+        arguments = q.get()
+        main(1)
+        sleep(1)
+        q.task_done()
+#fork NUM个线程等待队列
+for i in range(NUM):
+    t = Thread(target=working)
+    t.setDaemon(True)
+    t.start()
+#把JOBS排入队列
+for i in range(JOBS):
+    q.put(i)
+#等待所有JOBS完成
+q.join()
