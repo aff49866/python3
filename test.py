@@ -35,10 +35,15 @@
 
 
 # -*- coding: UTF-8 -*-
-
+import requests
 import re
-r = re.findall("1{:1}2","11120")
-print(r)
+response = requests.get("http://www.baidu.com2/")
+response.encoding = response.apparent_encoding
+response = response.text
+
+print(response)
+
+
 # 廖学峰老师教程学习
 # classmates = ['michael','bob','tracy']
 # classmates.append('adam')
