@@ -162,4 +162,15 @@ def isPrime(n):
     if n % i == 0:
         return False
   return True
-print(isPrime(5))
+def monisen(no):
+    p,n = 2,1
+    while True:
+        m = 2**p -1
+        if isPrime(p) and isPrime(m):
+            if n == no:
+                return m
+                break
+            else:
+                n += 1
+        p += 1
+print(monisen(int(input())))
