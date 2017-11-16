@@ -41,7 +41,7 @@ def saveinfo(infolist,title,pagenum):
         except ZeroDivisionError as e:
             raise ValueError(e)
 if __name__ == '__main__':
-    file = "I:/toutiaopic/picimages.txt"
+    file = "I:/toutiaopic/picimages.txt" #url地址，比如：https://www.toutiao.com/a6471196162622751245
     urlist,infolist,title=[],[],[]
     readurl(file,urlist)
     for l in range(len(urlist)):
