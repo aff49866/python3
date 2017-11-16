@@ -41,12 +41,13 @@ def constrained_sum_sample_pos(n, total):
 那么如果最终之和是10，[1,2,3,4,10]减去[0,1,2,3,4]，得到新的列表[1,1,1,1,6]，然后各个数相加就等同于(1-0)+(2-1)+(3-2)+(4-3)+(10-4)=(1+2+3+4+10)-1-2-3-4-0=10-0=10，中间随机产生的数都抵销掉
 然后可限定最终列表的最小值min(list)
 '''
-    dividers = sorted(random.sample(range(1, total), n - 1))
+    # dividers = sorted(random.sample(range(1, total), n - 1))
+    dividers = sorted(random.sample(range(0, total,20), n - 1))
     num_list=[]
     for a, b in zip(dividers + [total], [0] + dividers):
         num_list.append(a-b)
     return num_list
-list2 = constrained_sum_sample_pos(8, 5000)
-while min(list2)<300:
-    list2 = constrained_sum_sample_pos(8, 5000)
+list2 = constrained_sum_sample_pos(8, 14740)
+while min(list2)<160:
+    list2 = constrained_sum_sample_pos(8, 14740)
 print(list2)

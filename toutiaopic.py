@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 import re
 import os
 def readurl(file,urlist):
@@ -18,46 +17,37 @@ def gethtml(url):
         return r.text
     except ZeroDivisionError as e:
         raise ValueError(e)
-def getinfo(infolist,html):
+def getinfo(infolist,html,title):
     try:
-        # soup = BeautifulSoup(html, 'html.parser')
-        # imageslist = [i.attrs['href'] for i in soup.select('a.image-origin')]
-        # titlelist = [i.text() for i in soup.select("h2.title")]
-        titlelist = re.findall("title: '(.*?)'", html)
-        imageslist = re.findall(r"\"{\"url\":\"http:\\/\\/p3.pstatp.com\\/origin\\/(.*?)\"\"",html)
-        print(titlelist,imageslist)
-        # for n in range(len(imageslist)):
-        #     images,title = imageslist[n],titlelist[n]
-        #     infolist.append([images,title])
-        # print(infolist)
+        reg = re.compile(r"title: '(.*?)'", re.S)
+        reg2 = re.compile(r'/origin\\\\/(\w+)\\', re.S)
+        title.append(reg.findall(html))
+        imagesmore = reg2.findall(html)
+        imageslist = sorted(set(imagesmore), key=imagesmore.index)
+        for i in imageslist:
+            imageurl = "http://p1.pstatp.com/origin/" + i
+            infolist.append(imageurl)
     except ZeroDivisionError as e:
         raise ValueError(e)
-def saveinfo(infolist,pagenum,html):
-    # os.chdir(r"I:/toutiaopic/")
-    # os.mkdir(str(pagenum))
-
-    for c in range(len(infolist)):
-        print(c)
-        os.mkdir(r"I:/toutiaopic/" + str(pagenum))
-        for n in infolist[c][0]:
-            # root = "I:/toutiaopic"
-            path = n.split("/")[-1]
-            try:
-                if not os.path.exists(path):
-                    imgr = requests.get(n)
-                    with open(path, 'wb') as f:
-                        f.write(imgr.content)
-                else:
-                    print("文件已经存在", path)
-            except ZeroDivisionError as e:
-                raise ValueError(e)
+def saveinfo(infolist,title,pagenum):
+    os.mkdir(r"I:/toutiaopic/" + str(pagenum))
+    for e in infolist:
+        path = r"I:/toutiaopic/" + str(pagenum) + '/'+ e.split("/")[-1] + '.jpg'
+        print(path)
+        try:
+            imgr = requests.get(e)
+            with open(path, 'wb') as f:
+                f.write(imgr.content)
+        except ZeroDivisionError as e:
+            raise ValueError(e)
 if __name__ == '__main__':
     file = "I:/toutiaopic/picimages.txt"
-    urlist,infolist=[],[]
+    urlist,infolist,title=[],[],[]
     readurl(file,urlist)
     for l in range(len(urlist)):
         html = gethtml(urlist[l])
-        getinfo(infolist,html)
-        print(infolist)
-        # saveinfo(infolist,pagenum=l)
+        getinfo(infolist,html,title)
+        print(infolist,title)
+        saveinfo(infolist,title,pagenum=l)
+        infolist,title=[],[]
 

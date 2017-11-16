@@ -35,9 +35,9 @@ def auto_send(driver,*upfiles):
     # driver.save_screenshot("abd2.png")
     driver.quit()
 if __name__ == '__main__':
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome("J:\G盘\python3\chrome\chromedriver.exe")
     url = 'https://weibo.com/login.php'
     upfile1 =r"I:\python\git\python3\python3\abd2.png"
-    upfile2 =r"I:\python\git\python3\python3\abd.png"
+    upfile2 ="J:\G盘\python3\python3\VCG21gic19976029.jpg"
     auto_login(driver,url)
     auto_send(driver,upfile1,upfile2)

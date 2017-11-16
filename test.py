@@ -155,22 +155,29 @@ from functools import reduce
 #     return t[1]
 # L2 = sorted(L,key=by_score,reverse=True)
 # print(L2)
-def isPrime(n):
-  if n <= 1:
-    return False
-  for i in range(2, n):
-    if n % i == 0:
-        return False
-  return True
-def monisen(no):
-    p,n = 2,1
-    while True:
-        m = 2**p -1
-        if isPrime(p) and isPrime(m):
-            if n == no:
-                return m
-                break
-            else:
-                n += 1
-        p += 1
-print(monisen(int(input())))
+
+# def isPrime(n):
+#   if n <= 1:
+#     return False
+#   for i in range(2, n):
+#     if n % i == 0:
+#         return False
+#   return True
+# def monisen(no):
+#     p,n = 2,1
+#     while True:
+#         m = 2**p -1
+#         if isPrime(p) and isPrime(m):
+#             if n == no:
+#                 return m
+#                 break
+#             else:
+#                 n += 1
+#         p += 1
+# print(monisen(int(input())))
+
+import random
+n = random.uniform(99,101)
+n = ("%.2f" % n)
+print(n)
+
