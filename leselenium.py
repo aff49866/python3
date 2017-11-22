@@ -2,6 +2,24 @@ from selenium import webdriver  #导入Selenium的webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import toutiaopic
+import os,time,random
+def get_text_word(file_dir):
+    text_word_content = []
+    for root, dirs, files in os.walk(file_dir):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                with open(os.path.join(root, file)) as f:
+                    for r in f.readlines():
+                        text_word_content.append(r.rstrip('\n'))
+    return text_word_content
+def file_name(file_dir):
+    imagesdir=[]
+    for root, dirs, files in os.walk(file_dir):
+        for file in files:
+            if os.path.splitext(file)[1] == '.jpg':
+                imagesdir.append(os.path.join(root, file))
+    return imagesdir
 def auto_login(driver,url):
     account = input() #输入账号
     password = input() #输入密码
@@ -15,22 +33,29 @@ def auto_login(driver,url):
     driver.find_element_by_id("loginname").send_keys(account) # 在搜索框中输入帐号
     driver.find_element_by_name("password").send_keys(password)# 输入密码
     driver.find_element_by_class_name("W_btn_a").click()  # 提交
-def auto_send(driver,*upfiles):
+def auto_send(driver,send_word_content,upfiles):
     wait = WebDriverWait(driver, 3)  # 页面加载等待时间
     wait.until(EC.presence_of_element_located((By.NAME, 'pic1')))
     upload = driver.find_element_by_name('pic1')
     for files in upfiles:
         upload.send_keys(files) # 上传图片、视频等
     textword = driver.find_element_by_css_selector("textarea[class='W_input']")
-    textword.send_keys("上传多张图片上传多张图片上传多张图片上传多张图片")  # 文字内容
+    textword.send_keys(send_word_content)  # 文字内容
     wait_upload = WebDriverWait(driver, 30000)
     wait_upload.until_not(EC.presence_of_all_elements_located((By.CLASS_NAME, "loading")))  # 等待上传完成
     driver.find_element_by_link_text("发布").click()    #点击发布
-    driver.quit()
+    driver.refresh()
 if __name__ == '__main__':
-    driver = webdriver.Chrome("J:\G盘\python3\chrome\chromedriver.exe") # 指定使用的浏览器，初始化webdriver
+    toutiaopic.main()
+    driver = webdriver.Chrome("I:\python\chromedriver\chromedriver.exe") # 指定使用的浏览器，初始化webdriver
     url = 'https://weibo.com/login.php'
-    upfile1 =r"I:\python\git\python3\python3\abd2.png"
-    upfile2 =r"J:\G盘\python3\python3\VCG21gic19976029.jpg"
-    auto_login(driver,url)
-    auto_send(driver,upfile1,upfile2)
+    auto_login(driver, url)
+    file_dir = "K:\\toutiaopic\\" + str(time.strftime("%Y%m%d", time.localtime())) + '\\'
+    text_word_content = get_text_word(file_dir)
+    for i in range(len(text_word_content)):
+        upfiles = file_name(file_dir+ str(i))
+        send_word_content = text_word_content[i]
+        print(send_word_content,upfiles)
+        auto_send(driver, send_word_content, upfiles)
+        time.sleep(random.randint(30,60))
+    # driver.quit()

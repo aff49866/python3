@@ -1,6 +1,6 @@
 import requests
 import re
-import os
+import os,time
 def readurl(file,urlist):
     with open(file) as f:
         for url in f.readlines():
@@ -21,7 +21,7 @@ def getinfo(infolist,html,title):
     try:
         reg = re.compile(r"title: '(.*?)'", re.S)
         reg2 = re.compile(r'/origin\\\\/(\w+)\\', re.S)
-        title.append(reg.findall(html))
+        title.append(reg.findall(html)[0])
         imagesmore = reg2.findall(html)
         imageslist = sorted(set(imagesmore), key=imagesmore.index)
         for i in imageslist:
@@ -30,9 +30,9 @@ def getinfo(infolist,html,title):
     except ZeroDivisionError as e:
         raise ValueError(e)
 def saveinfo(infolist,title,pagenum):
-    os.mkdir(r"I:/toutiaopic/" + str(pagenum))
+    os.makedirs(r"K:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum))
     for e in infolist:
-        path = r"I:/toutiaopic/" + str(pagenum) + '/'+ e.split("/")[-1] + '.jpg'
+        path = r"K:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/'+ e.split("/")[-1] + '.jpg'
         print(path)
         try:
             imgr = requests.get(e)
@@ -40,8 +40,15 @@ def saveinfo(infolist,title,pagenum):
                 f.write(imgr.content)
         except ZeroDivisionError as e:
             raise ValueError(e)
-if __name__ == '__main__':
-    file = "I:/toutiaopic/picimages.txt" #url地址，比如：https://www.toutiao.com/a6471196162622751245
+    try:
+        textpath = r"K:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/' + str(pagenum) + '.txt'
+        print(textpath)
+        with open(textpath, 'w') as f:
+            f.write(str(title[0]))
+    except ZeroDivisionError as e:
+        raise ValueError(e)
+def main():
+    file = "K:/toutiaopic/picimages.txt" #url地址，比如：https://www.toutiao.com/a6471196162622751245
     urlist,infolist,title=[],[],[]
     readurl(file,urlist)
     for l in range(len(urlist)):

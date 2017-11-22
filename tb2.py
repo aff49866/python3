@@ -46,7 +46,7 @@ def constrained_sum_sample_pos(n, total):
     for a, b in zip(dividers + [total], [0] + dividers):
         num_list.append(a-b)
     return num_list
-list2 = constrained_sum_sample_pos(8, 14740)
+list2 = constrained_sum_sample_pos(10, 29000)
 while min(list2)<160:
-    list2 = constrained_sum_sample_pos(8, 14740)
+    list2 = constrained_sum_sample_pos(10, 29000)
 print(list2)
