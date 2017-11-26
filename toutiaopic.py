@@ -30,9 +30,9 @@ def getinfo(infolist,html,title):
     except ZeroDivisionError as e:
         raise ValueError(e)
 def saveinfo(infolist,title,pagenum):
-    os.makedirs(r"K:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum))
+    os.makedirs(r"I:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum))
     for e in infolist:
-        path = r"K:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/'+ e.split("/")[-1] + '.jpg'
+        path = r"I:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/'+ e.split("/")[-1] + '.jpg'
         print(path)
         try:
             imgr = requests.get(e)
@@ -41,14 +41,14 @@ def saveinfo(infolist,title,pagenum):
         except ZeroDivisionError as e:
             raise ValueError(e)
     try:
-        textpath = r"K:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/' + str(pagenum) + '.txt'
+        textpath = r"I:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/' + str(pagenum) + '.txt'
         print(textpath)
         with open(textpath, 'w') as f:
             f.write(str(title[0]))
     except ZeroDivisionError as e:
         raise ValueError(e)
 def main():
-    file = "K:/toutiaopic/picimages.txt" #url地址，比如：https://www.toutiao.com/a6471196162622751245
+    file = "I:/toutiaopic/picimages.txt" #url地址，比如：https://www.toutiao.com/a6471196162622751245
     urlist,infolist,title=[],[],[]
     readurl(file,urlist)
     for l in range(len(urlist)):

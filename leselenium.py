@@ -6,12 +6,12 @@ import toutiaopic
 import os,time,random
 def get_text_word(file_dir):
     text_word_content = []
-    for root, dirs, files in os.walk(file_dir):
-        for file in files:
-            if os.path.splitext(file)[1] == '.txt':
-                with open(os.path.join(root, file)) as f:
-                    for r in f.readlines():
-                        text_word_content.append(r.rstrip('\n'))
+    dirsort = sorted(os.listdir(file_dir),key=int)
+    for i in dirsort:
+        sec_file_dir = file_dir + '\\' + i + '\\' + i + '.txt'
+        with open(sec_file_dir) as f:
+            for r in f.readlines():
+                text_word_content.append(r.rstrip('\n'))
     return text_word_content
 def file_name(file_dir):
     imagesdir=[]
@@ -47,16 +47,17 @@ def auto_send(driver,send_word_content,upfiles):
     driver.find_element_by_link_text("发布").click()    #点击发布
     driver.refresh()
 if __name__ == '__main__':
+    file_dir = "I:\\toutiaopic\\" + str(time.strftime("%Y%m%d", time.localtime())) + '\\'
     toutiaopic.main()
-    driver = webdriver.Chrome("I:\python\chromedriver\chromedriver.exe") # 指定使用的浏览器，初始化webdriver
+    driver = webdriver.Chrome("J:\G盘\python3\chrome\chromedriver.exe") # 指定使用的浏览器，初始化webdriver
     url = 'https://weibo.com/login.php'
     auto_login(driver, url)
-    file_dir = "K:\\toutiaopic\\" + str(time.strftime("%Y%m%d", time.localtime())) + '\\'
     text_word_content = get_text_word(file_dir)
+    print(text_word_content)
     for i in range(len(text_word_content)):
         upfiles = file_name(file_dir+ str(i))
         send_word_content = text_word_content[i]
         print(send_word_content,upfiles)
         auto_send(driver, send_word_content, upfiles)
-        time.sleep(random.randint(30,60))
+        time.sleep(random.randint(60,600))
     # driver.quit()
