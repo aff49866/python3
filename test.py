@@ -176,8 +176,24 @@ from functools import reduce
 #         p += 1
 # print(monisen(int(input())))
 
-import random
-n = random.uniform(99,101)
-n = ("%.2f" % n)
-print(n)
-
+# import random,time,datetime
+# # n = random.uniform(99,101)
+# # n = ("%.2f" % n)
+# # print(n)
+#
+# x = time.localtime(1511411812)#localtime参数为float类型，这里1317091800.0为float类型
+# time.strftime('%Y-%m-%d',x)
+# # a= "2017-11-23 14:00:00"
+# # print(time.mktime(time.strptime(a,'%Y-%m-%d %H:%M:%S')))
+# print(x)
+import pathconfig
+# with open(r'K:\toutiaopic\20171128\0\0.txt',encoding='utf-8') as f:
+#     for r in f.readlines():
+#         print(r)
+#         textfg = []
+#         textfg.append(r)
+#         print(textfg)
+# toutiaopic.main()
+# str='被埋地震废墟下 痛失爱女，丈夫见死不救，如今的她美出新高度'
+pathconfig = pathconfig.main()
+print(pathconfig)
