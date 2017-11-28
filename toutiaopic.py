@@ -13,7 +13,7 @@ def gethtml(url):
         }
         r = requests.get(url,headers=headers)
         r.raise_for_status()
-        r.encoding = r.apparent_encoding
+        r.encoding = 'utf-8'
         return r.text
     except ZeroDivisionError as e:
         raise ValueError(e)
@@ -29,10 +29,10 @@ def getinfo(infolist,html,title):
             infolist.append(imageurl)
     except ZeroDivisionError as e:
         raise ValueError(e)
-def saveinfo(infolist,title,pagenum):
-    os.makedirs(r"I:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum))
+def saveinfo(infolist,title,pathconfig,pagenum):
+    os.makedirs(pathconfig + str(time.strftime("%Y%m%d", time.localtime())) + '\\' + str(pagenum))
     for e in infolist:
-        path = r"I:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/'+ e.split("/")[-1] + '.jpg'
+        path = pathconfig + str(time.strftime("%Y%m%d", time.localtime())) + '\\' + str(pagenum) + '\\'+ e.split("/")[-1] + '.jpg'
         print(path)
         try:
             imgr = requests.get(e)
@@ -41,20 +41,19 @@ def saveinfo(infolist,title,pagenum):
         except ZeroDivisionError as e:
             raise ValueError(e)
     try:
-        textpath = r"I:/toutiaopic/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(pagenum) + '/' + str(pagenum) + '.txt'
+        textpath = pathconfig + str(time.strftime("%Y%m%d", time.localtime())) + '\\' + str(pagenum) + '\\' + str(pagenum) + '.txt'
         print(textpath)
-        with open(textpath, 'w') as f:
+        with open(textpath, 'w',encoding='utf-8') as f:
             f.write(str(title[0]))
     except ZeroDivisionError as e:
         raise ValueError(e)
-def main():
-    file = "I:/toutiaopic/picimages.txt" #url地址，比如：https://www.toutiao.com/a6471196162622751245
+def main(pathconfig):
+    file = pathconfig + '\picimages.txt' #url地址，比如：https://www.toutiao.com/a6471196162622751245
     urlist,infolist,title=[],[],[]
     readurl(file,urlist)
     for l in range(len(urlist)):
         html = gethtml(urlist[l])
         getinfo(infolist,html,title)
         print(infolist,title)
-        saveinfo(infolist,title,pagenum=l)
+        saveinfo(infolist,title,pathconfig,pagenum=l)
         infolist,title=[],[]
-

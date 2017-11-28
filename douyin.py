@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import requests
+import pathconfig
 import re
 import os,time
 def readurl(file,urlist):
@@ -11,7 +12,9 @@ def readurl(file,urlist):
         for url in f.readlines():
             urlist.append(url.rstrip('\n'))
     return urlist
-def gethtml(url,urlist):
+def gettitle():
+    pass
+def gethtml(url,urlist,filepath):
     try:
         driver.get(url)
         driver.set_window_size(1920, 1080)
@@ -25,21 +28,18 @@ def gethtml(url,urlist):
             imgurl = driver.find_element_by_css_selector('a.btn-info').get_attribute('href')
             videolist = [videourl,imgurl]
             print(videolist,urlist.index(list))
-            os.makedirs(r"I:/douyin/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(urlist.index(list)))
-            path = r"I:/douyin/" + str(time.strftime("%Y%m%d", time.localtime())) + '/' + str(urlist.index(list))
+            os.makedirs(filepath + str(time.strftime("%Y%m%d", time.localtime())) + '\\' + str(urlist.index(list)))
+            path = filepath + str(time.strftime("%Y%m%d", time.localtime())) + '\\' + str(urlist.index(list))
             try:
                 video = requests.get(videolist[0])
-                videosplit = re.split(r"/|.|\?", videolist[0])
-                print(videosplit)
-                print(path+'/'+ videosplit[-3] + '.mp4')
-                with open(path+'/'+ videosplit[-3] + '.mp4', 'wb') as f:
+                print(path+'\\'+ str(urlist.index(list)) + '.mp4')
+                with open(path+'\\'+ str(urlist.index(list)) + '.mp4', 'wb') as f:
                     f.write(video.content)
                 images = requests.get(videolist[1])
-                with open(path + '/' + videolist[1].split("/")[-1], 'wb') as f:
+                with open(path + '\\' + videolist[1].split("/")[-1], 'wb') as f:
                     f.write(images.content)
             except ZeroDivisionError as e:
                 raise ValueError(e)
-    # + str(pagenum) + '/' + e.split("/")[-1] + '.jpg'
     except ZeroDivisionError as e:
          raise ValueError(e)
 def savevideo():
@@ -64,9 +64,11 @@ if __name__=='__main__':
     #     capability_key = 'phantomjs.page.customHeaders.{}'.format(key)
     #     webdriver.DesiredCapabilities.PHANTOMJS[capability_key] = value
     # driver = webdriver.PhantomJS("I:\phantomjs.exe",service_args=service_args)
-    driver = webdriver.Chrome('J:\G盘\python3\chrome\chromedriver.exe')
-    file = "I:/douyin/douyin.txt"
+    pathconfig = pathconfig.main()
+    file = pathconfig[2] + "douyin.txt"
+    driver = webdriver.Chrome(pathconfig[0])
     urlist = []
     urlist = readurl(file,urlist)
     url = 'http://douyin.iiilab.com/'
-    gethtml(url,urlist)
+    title = gettitle()
+    gethtml(url,urlist,pathconfig[2])
