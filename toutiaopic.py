@@ -21,8 +21,12 @@ def getinfo(infolist,html,title):
     try:
         reg = re.compile(r"title: '(.*?)'", re.S)
         reg2 = re.compile(r'/origin\\\\/(\w+)\\', re.S)
+        reg3 = re.compile(r"large/(\w+)&quot", re.S)
         title.append(reg.findall(html)[0])
-        imagesmore = reg2.findall(html)
+        if reg2.findall(html):
+            imagesmore = reg2.findall(html)
+        else:
+            imagesmore = reg3.findall(html)
         imageslist = sorted(set(imagesmore), key=imagesmore.index)
         for i in imageslist:
             imageurl = "http://p1.pstatp.com/origin/" + i
