@@ -18,7 +18,7 @@
 #         raise ValueError(e)
 # gethtml('http://zimeika.com/article/lists/tiantian.html?cate_id=1&time_type=&read_order=&type=&author_id=&author_name=&title=&p=1')
 import pymysql
-conn = pymysql.connect(host='211.149.173.153', port=3306, user='zhangmaode', passwd='zhang498660443',db='empirecms')
+conn = pymysql.connect(host='211.149.173.153', port=3306, user='zhangmaode', passwd='zhang498660443',db='empirecms',charset='utf8')
 cur = conn.cursor()
 cur.execute("SELECT * FROM phome_ecms_news")
 for r in cur.fetchall():
