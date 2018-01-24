@@ -1,3 +1,4 @@
+# from pyvirtualdisplay import Display
 from selenium import webdriver  #导入Selenium的webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -45,7 +46,7 @@ def auto_send(driver,send_word_content,upfiles):
     textword.send_keys(send_word_content)  # 文字内容
     wait_upload = WebDriverWait(driver, 1200)
     wait_upload.until_not(EC.presence_of_all_elements_located((By.CLASS_NAME, "loading")))  # 等待上传完成
-    time.sleep(3)
+    # time.sleep(3)
     driver.find_element_by_link_text("发布").click()    #点击发布
     driver.refresh()
 if __name__ == '__main__':
