@@ -1,5 +1,5 @@
 import requests
-import re
+import re,time
 import pymysql
 # def gethtml(url):
 #     try:
@@ -59,12 +59,12 @@ def getInfo(html):
     except ZeroDivisionError as e:
         raise ValueError(e)
 def connectdb():
-    db = pymysql.connect(host='211.149.173.153', port=3306, user='zhangmaode', passwd='zhang498660443',db='empirecms', charset='utf8')
+    db = pymysql.connect(,db='empirecms', charset='utf8')
     return db
 def insertdb(db,contentTxt):
     cursor = db.cursor()
     sql = """INSERT INTO phome_ecms_news (classid,title)
-             VALUES ('1','contentTxt["title"]')"""
+             VALUES ('1','""" + contentTxt["title"] + """')"""
     try:
         # 执行sql语句
         cursor.execute(sql)
