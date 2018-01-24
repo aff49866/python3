@@ -54,7 +54,7 @@ def getInfo(html):
         #     imagesmore = reg4.findall(html)
         # imageslist = sorted(set(imagesmore), key=imagesmore.index)
         # for i in imageslist:
-        #     imageurl = "http://p1.pstatp.com/origin/" + i
+        #     imageurl = "http://p1.pstatp.com/origin/" + is
         #     infolist.append(imageurl)
     except ZeroDivisionError as e:
         raise ValueError(e)
